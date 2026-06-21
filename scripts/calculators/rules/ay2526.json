@@ -1,0 +1,106 @@
+{
+  "ay": "2025-26",
+  "fy": "2024-25",
+  "description": "Finance Act 2024 (Budget July 2024)",
+  "metadata": {
+    "budget_date": "2024-07-23",
+    "notes": "Key changes: STCG equity 15→20%, LTCG equity 10→12.5% (exemption 1L→1.25L), SD new regime 50k→75k, property LTCG indexation removed with grandfathering option for pre-Jul-23-2024 acquisitions"
+  },
+  "old_regime": {
+    "standard_deduction_salary": 50000,
+    "slabs_general": [
+      {"from": 0,      "to": 250000,  "rate": 0},
+      {"from": 250000, "to": 500000,  "rate": 5},
+      {"from": 500000, "to": 1000000, "rate": 20},
+      {"from": 1000000,"to": null,    "rate": 30}
+    ],
+    "slabs_senior": [
+      {"from": 0,      "to": 300000,  "rate": 0},
+      {"from": 300000, "to": 500000,  "rate": 5},
+      {"from": 500000, "to": 1000000, "rate": 20},
+      {"from": 1000000,"to": null,    "rate": 30}
+    ],
+    "slabs_super_senior": [
+      {"from": 0,      "to": 500000,  "rate": 0},
+      {"from": 500000, "to": 1000000, "rate": 20},
+      {"from": 1000000,"to": null,    "rate": 30}
+    ],
+    "rebate_87a": {"max_income": 500000, "max_rebate": 12500},
+    "marginal_relief_87a": false
+  },
+  "new_regime": {
+    "standard_deduction_salary": 75000,
+    "slabs": [
+      {"from": 0,       "to": 300000,  "rate": 0},
+      {"from": 300000,  "to": 700000,  "rate": 5},
+      {"from": 700000,  "to": 1000000, "rate": 10},
+      {"from": 1000000, "to": 1200000, "rate": 15},
+      {"from": 1200000, "to": 1500000, "rate": 20},
+      {"from": 1500000, "to": null,    "rate": 30}
+    ],
+    "rebate_87a": {"max_income": 700000, "max_rebate": 25000},
+    "marginal_relief_87a": true
+  },
+  "surcharge": {
+    "old_regime": [
+      {"from": 0,        "to": 5000000,  "rate": 0},
+      {"from": 5000000,  "to": 10000000, "rate": 10},
+      {"from": 10000000, "to": 20000000, "rate": 15},
+      {"from": 20000000, "to": 50000000, "rate": 25},
+      {"from": 50000000, "to": null,     "rate": 37}
+    ],
+    "new_regime": [
+      {"from": 0,        "to": 5000000,  "rate": 0},
+      {"from": 5000000,  "to": 10000000, "rate": 10},
+      {"from": 10000000, "to": 20000000, "rate": 15},
+      {"from": 20000000, "to": null,     "rate": 25}
+    ],
+    "capital_gains_equity_cap": 15
+  },
+  "cess_rate": 4,
+  "capital_gains": {
+    "equity_stcg_rate": 20,
+    "equity_ltcg_rate": 12.5,
+    "equity_ltcg_exemption": 125000,
+    "equity_ltcg_grandfathering_date": "2018-01-31",
+    "equity_holding_months_long": 12,
+    "property_stcg_rate": "slab",
+    "property_ltcg_rate": 12.5,
+    "property_ltcg_with_indexation_rate": 20,
+    "property_ltcg_grandfathering_cutoff": "2024-07-23",
+    "property_holding_months_long": 24,
+    "debt_mf_rate": "slab",
+    "debt_mf_ltcg_qualifies": false,
+    "gold_stcg_rate": "slab",
+    "gold_ltcg_rate": 12.5,
+    "gold_holding_months_long": 24,
+    "vda_rate": 30
+  },
+  "deduction_limits": {
+    "80C_max": 150000,
+    "80CCC_max": 150000,
+    "80CCD1_max_percent_salary": 10,
+    "80CCD1B_max": 50000,
+    "80CCD2_max_percent_salary": 14,
+    "80C_80CCC_80CCD1_combined_max": 150000,
+    "80D_self_below_60": 25000,
+    "80D_self_senior": 50000,
+    "80D_parents_below_60": 25000,
+    "80D_parents_senior": 50000,
+    "80E_max": null,
+    "80EEA_max": 150000,
+    "80G_100pct_no_limit": ["PM_CARES", "PM_RELIEF_FUND"],
+    "80TTA_max": 10000,
+    "80TTB_max": 50000,
+    "HRA_metro_cities": ["Mumbai", "Delhi", "Kolkata", "Chennai"],
+    "HRA_metro_percent": 50,
+    "HRA_non_metro_percent": 40
+  },
+  "available_in_new_regime": [
+    "80CCD2",
+    "standard_deduction_salary",
+    "transport_allowance_disability",
+    "leave_travel_concession_disabled"
+  ],
+  "schedule_al_threshold": 5000000
+}
