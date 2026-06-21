@@ -160,3 +160,106 @@ tests/
 Testing dependencies are included in `requirements.txt`:
 - `pytest>=8.0.0`
 - `pytest-cov>=5.0.0`
+
+## Contributing
+
+Taxman is an open project and contributions are welcome at every level of
+experience. Here are the most impactful ways to help:
+
+### 1. Test with Real-Life Data and Report Issues
+
+The single most valuable contribution is running the workflow against **your own
+tax documents** (Form 16, 26AS, AIS, broker P&L) and reporting what breaks.
+
+- Run `/tax-init`, parse your documents with `/tax-parse`, and compare the
+  extracted figures against the originals
+- Run `/tax-compute` and cross-check the computed tax against the IT portal's
+  pre-filled figures or a CA's computation
+- Open an issue with:
+  - Which step failed or produced wrong numbers
+  - The AY and ITR form type
+  - Expected vs actual values (redact sensitive details — PAN, name, exact salary)
+  - Screenshots of the discrepancy if possible
+
+**You don't need to write a single line of code** — just reporting "Form 16 parser
+missed employer #2" or "LTCG exemption applied twice" saves everyone time.
+
+### 2. Fix a Bug You Found and Raise a PR
+
+If you found an issue in step 1 and want to fix it yourself:
+
+- Fork the repo and create a branch from `main`
+- Fix the parser, calculator, or validator that produced the wrong result
+- Add or update a unit test that would have caught the bug
+  (see [Writing New Tests](#writing-new-tests) above)
+- Run `pytest` to make sure all 127+ tests pass
+- Open a PR describing the bug, the root cause, and the fix
+
+Even small fixes matter — an off-by-one in a slab boundary or a missed regex
+pattern in the Form 16 parser can affect thousands of users.
+
+### 3. Improve Parser and Calculator Coverage with Diverse Data
+
+Different employers, banks, and brokers produce wildly different document
+formats. Help us handle more of them:
+
+- **Parsers**: Test with Form 16 PDFs from different employers (TCS, Infosys,
+  startups, government), bank statements from various banks (SBI, HDFC, ICICI,
+  Kotak), and broker reports from Zerodha, Groww, Upstox, Angel One, etc.
+- **Calculators**: Test edge cases — senior citizen slabs, NRI taxation, large
+  capital gains with surcharge, multiple house properties, carry-forward losses
+- **Validators**: Try unusual but valid inputs — PANs with specific 4th-letter
+  meanings, old-format IFSC codes, edge-case date formats
+
+For each, add parametrized test cases in the relevant test file with anonymized
+data so the test suite grows with real-world variety.
+
+### 4. Expand ITR Form Support
+
+ITR-3 (business income) and ITR-4 (presumptive taxation) are currently stubs.
+If you file under these forms, you can help by:
+
+- Documenting the additional fields and schedules these forms require
+- Extending the calculator to handle business income, presumptive income
+  (44AD/44ADA), or partnership income
+- Adding portal automation steps in `scripts/portal/` for the new form flows
+
+### 5. Improve Portal Automation
+
+The Playwright-based portal filler (`scripts/portal/`) works with the current
+IT portal layout, but the portal changes frequently. Contributions here include:
+
+- Fixing broken selectors when the portal updates its UI
+- Adding support for new schedules (Schedule FA, Schedule FSI, Schedule TR)
+- Improving error recovery — what happens when the portal times out mid-fill
+
+### 6. Add or Update Tax Rules for New Assessment Years
+
+When the Finance Budget introduces new slabs, rates, or deduction limits:
+
+- Run `/tax-update-rules <new-AY>` to scaffold the rules file
+- Verify every field against the Finance Act / Budget documents
+- Add golden tests in `test_tax_calculator.py` that validate known tax amounts
+  for the new AY
+
+### Getting Started as a Contributor
+
+```bash
+# Clone and set up
+git clone https://github.com/meranamvarun/taxman.git
+cd taxman
+python -m venv .venv
+.venv/Scripts/activate    # Windows
+# source .venv/bin/activate  # macOS/Linux
+pip install -r requirements.txt
+
+# Run tests to make sure everything works
+pytest
+
+# Start a session to explore the workflow
+# (inside Claude Code)
+/tax-init 2025-26
+```
+
+All sensitive data stays local — `state/` and `documents/` are gitignored, so
+you can safely test with real documents without risk of committing them.
