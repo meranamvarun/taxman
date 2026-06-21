@@ -3,29 +3,34 @@
 A collection of Claude slash commands that guide an Indian resident through the complete
 Income Tax Return filing workflow for any Assessment Year.
 
-## Prerequisites
+## Quick Start
 
 ```bash
-pip install -r requirements.txt
-playwright install chromium
+# Let Claude handle everything (recommended):
+/tax-setup
+
+# Or run the installer directly if Python is already available:
+python3 scripts/setup/setup.py
 ```
 
-Tesseract OCR (optional, for scanned PDFs):
-- Ubuntu/Debian: `sudo apt install tesseract-ocr`
-- macOS: `brew install tesseract`
+`/tax-setup` detects your OS (Ubuntu/Debian, Fedora, Arch, macOS, Windows),
+creates `.venv/`, installs all packages, downloads Playwright Chromium, and
+writes `.claude/settings.json` so the venv is active for every `/tax-*` skill
+automatically — no `source .venv/bin/activate` needed.
 
 ## Workflow Overview
 
 ```
-/tax-help           → Overview and next steps
-/tax-init [AY]      → Start or resume a session (AY e.g. "2026-27")
-/tax-status         → Check progress cheaply (~100 tokens)
-/tax-parse <file>   → Parse a document (auto-detects type)
-/tax-reconcile      → Flag 26AS vs Form-16 vs AIS discrepancies
-/tax-compute        → Compute tax for old and new regime
-/tax-review         → Final human review of all data
-/tax-file           → Open portal with Playwright and fill ITR
-/tax-update-rules <AY> → Scaffold tax rules for a new Assessment Year
+/tax-setup              → Install all tools (run once, re-run after OS change)
+/tax-help               → Overview and next steps
+/tax-init [AY]          → Start or resume a session (AY e.g. "2026-27")
+/tax-status             → Check progress cheaply (~100 tokens)
+/tax-parse <file>       → Parse a document (auto-detects type)
+/tax-reconcile          → Flag 26AS vs Form-16 vs AIS discrepancies
+/tax-compute            → Compute tax for old and new regime
+/tax-review             → Final human review of all data
+/tax-file               → Open portal with Playwright and fill ITR
+/tax-update-rules <AY>  → Scaffold tax rules for a new Assessment Year
 ```
 
 ## Document Checklist by ITR Form
